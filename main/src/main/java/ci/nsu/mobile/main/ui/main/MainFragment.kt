@@ -1,11 +1,13 @@
 package ci.nsu.mobile.main.ui.main
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 import ci.nsu.mobile.main.R
 
@@ -33,6 +35,12 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val transferButton = view.findViewById<Button>(R.id.transferButton)
 
+        transferButton.setOnClickListener {
+            val intent = Intent(requireContext(), SecondActivity::class.java)
+            intent.putExtra("message", "Привет со второго экрана")
+            startActivity(intent)
+        }
     }
 }

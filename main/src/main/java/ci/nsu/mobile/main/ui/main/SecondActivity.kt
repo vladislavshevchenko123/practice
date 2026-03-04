@@ -2,6 +2,7 @@ package ci.nsu.mobile.main.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import ci.nsu.mobile.main.R
 
 class SecondActivity : AppCompatActivity() {
@@ -14,5 +15,10 @@ class SecondActivity : AppCompatActivity() {
                 .replace(R.id.container, SecondFragment.newInstance())
                 .commitNow()
         }
+
+        val message = intent.getStringExtra("message")
+
+        val textView = findViewById<TextView>(R.id.textView)
+        textView.text = message
     }
 }
