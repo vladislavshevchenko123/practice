@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import ci.nsu.mobile.main.R
 import com.google.android.material.appbar.MaterialToolbar
 import androidx.navigation.fragment.findNavController
+import ci.nsu.mobile.main.MainActivity
 import ci.nsu.mobile.main.SecondActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -41,7 +42,16 @@ class SecondFragment : Fragment() {
         val topAppBar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
 
         topAppBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            try {
+                findNavController().popBackStack(0, inclusive = false)
+            } catch (e: IllegalStateException) {
+
+                activity?.let {
+                    val intent = Intent(activity, MainActivity::class.java)
+                    intent.putExtra("message", "")
+                    it.startActivity(intent)
+                }
+            }
         }
 
         // BottomNavigationView
@@ -50,7 +60,11 @@ class SecondFragment : Fragment() {
             when(item.itemId) {
                 MenuDestination.Main.id -> {
                     // ничего не делаем
-                    findNavController().popBackStack()
+                    activity?.let {
+                        val intent = Intent(activity, MainActivity::class.java)
+                        intent.putExtra("message", "")
+                        it.startActivity(intent)
+                    }
                 }
                 MenuDestination.Second.id -> {
                     // открываем SecondActivity, как кнопка Transfer

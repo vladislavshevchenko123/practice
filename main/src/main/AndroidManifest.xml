@@ -10,6 +10,7 @@
         android:theme="@style/Theme.Draft">
         <activity
             android:name=".SecondActivity"
+            android:theme="@style/Theme.MyApp"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

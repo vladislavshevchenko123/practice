@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
         val transferButton = view.findViewById<Button>(R.id.transferButton)
         transferButton.setOnClickListener {
             activity?.let {
-                val intent = Intent(it, SecondActivity::class.java)
+                val intent = Intent(activity, SecondActivity::class.java)
                 intent.putExtra("message", "Привет с первого экрана")
                 it.startActivity(intent)
             }
@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
                 MenuDestination.Second.id -> {
                     // открываем SecondActivity, как кнопка Transfer
                     activity?.let {
-                        val intent = Intent(it, SecondActivity::class.java)
+                        val intent = Intent(activity, SecondActivity::class.java)
                         intent.putExtra("message", "Привет с первого экрана")
                         it.startActivity(intent)
                     }
@@ -67,5 +67,9 @@ class MainFragment : Fragment() {
             }
             true
         }
+    }
+
+    fun OpenSecond() {
+
     }
 }
