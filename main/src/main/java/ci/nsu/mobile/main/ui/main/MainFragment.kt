@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
+import com.google.android.material.appbar.MaterialToolbar
 import ci.nsu.mobile.main.R
+import ci.nsu.mobile.main.SecondActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainFragment : Fragment() {
 
@@ -18,12 +20,6 @@ class MainFragment : Fragment() {
     }
 
     private val viewModel: MainViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,12 +31,41 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Кнопка Transfer открывает SecondActivity через Intent
         val transferButton = view.findViewById<Button>(R.id.transferButton)
-
         transferButton.setOnClickListener {
-            val intent = Intent(requireContext(), SecondActivity::class.java)
-            intent.putExtra("message", "Привет со второго экрана")
-            startActivity(intent)
+            activity?.let {
+                val intent = Intent(it, SecondActivity::class.java)
+                intent.putExtra("message", "Привет с первого экрана")
+                it.startActivity(intent)
+            }
+        }
+
+        // TopBar стрелку назад пока оставим без NavController
+        val topAppBar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
+        topAppBar.setNavigationOnClickListener {
+            // Просто завершить Activity, если нужно
+            activity?.finish()
+        }
+
+
+        // BottomNavigationView
+        val bottomNav = view.findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                MenuDestination.Main.id -> {
+                    // ничего не делаем
+                }
+                MenuDestination.Second.id -> {
+                    // открываем SecondActivity, как кнопка Transfer
+                    activity?.let {
+                        val intent = Intent(it, SecondActivity::class.java)
+                        intent.putExtra("message", "Привет с первого экрана")
+                        it.startActivity(intent)
+                    }
+                }
+            }
+            true
         }
     }
 }

@@ -1,9 +1,9 @@
-package ci.nsu.mobile.main.ui.main
+package ci.nsu.mobile.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import ci.nsu.mobile.main.R
+import androidx.appcompat.app.AppCompatActivity
+import ci.nsu.mobile.main.ui.main.SecondFragment
 
 class SecondActivity : AppCompatActivity() {
 
@@ -12,7 +12,7 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SecondFragment.newInstance())
+                .replace(R.id.container, SecondFragment.Companion.newInstance())
                 .commitNow()
         }
 
